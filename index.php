@@ -3,7 +3,7 @@
 	include 'db.php';
 	include 'functions.php';
 			
-	startDatabaseConnection('root', '', 'dctech');
+	startDatabaseConnection('jtdctech', 'jtdctech', 'jtdctech');
 	
 	pageheader('DC Tech');
 	

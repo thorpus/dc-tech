@@ -11,6 +11,33 @@
 	
 	}
 	
+	function getCompanyURL($id){
+		$query = "SELECT url FROM companies WHERE id =".$id;
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		
+		return $row['url'];
+	
+	}
+	
+	function getCompanyTwitterHandle($id){
+		$query = "SELECT twitter FROM companies WHERE id =".$id;
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		
+		return $row['twitter'];
+	
+	}
+	
+	function getCompanyFacebookPage($id){
+		$query = "SELECT * FROM companies WHERE id =".$id;
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		
+		return $row['facebook'];
+	
+	}
+	
 	function getCompanyType($id){
 		$query = "SELECT companyType FROM companies WHERE id =".$id;
 		$result = mysql_query($query);
@@ -23,14 +50,14 @@
 		return $row['type'];
 	}
 	
-	function getCompanyFacebook($id){	
+	function getCompanyFacebookBadge($id){	
 		$query = "SELECT facebook FROM companies WHERE id =".$id;
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result);	
 		print '<div class="fb-like-box" data-href="http://www.facebook.com/'.$row['facebook'].'" data-width="292" data-show-faces="true" data-stream="false" data-header="true"></div>';
 	}
 	
-	function getCompanyTwitter($id){
+	function getCompanyTwitterButton($id){
 		$query = "SELECT twitter FROM companies WHERE id =".$id;
 		$result = mysql_query($query);
 		$row = mysql_fetch_array($result);
@@ -41,9 +68,9 @@
 	
 	function showSocial($id){
 		print '<h2>Social</h2>';
-		getCompanyFacebook($id);
+		getCompanyFacebookBadge($id);
 		print '<br /><br />';
-		getCompanyTwitter($id);
+		getCompanyTwitterButton($id);
 	
 	}
 	
@@ -88,22 +115,27 @@
 		
 		print'
 			<table class="table table-striped">
-				<thead><tr><th>Posted</th><th>Title</th><th>URL</th></tr></thead>';
+				<thead><tr><th>Posted</th><th>Title</th><th>Source</th></tr></thead>';
 		
 		while($row = mysql_fetch_array($result)) {	  		
-	  		print '<tr><td>'.$row['posted'].'</a></td><td><a href="'.$row['url'].'">'.$row['title'].'</a></td><td>'.$row['url'].'</td></tr>';
+	  		print '<tr><td>'.$row['posted'].'</a></td><td><a href="'.$row['url'].'">'.$row['title'].'</a></td><td>'.newSource($row['url']).'</td></tr>';
 	  		
 	  		$howMany++;
   		}
 	
 		print '	</table>';
 		
-		print '<h2>'.$howMany.' people</h2>';
+		print '<h2>'.$howMany.' stories	</h2>';
+	
+	}
+	
+	function newSource($url){
+		return substr(substr($url, 7), 0, strpos(substr($url, 7),'/'));
 	
 	}
 
 
-	startDatabaseConnection('root', '', 'dctech');
+	startDatabaseConnection('jtdctech', 'jtdctech', 'jtdctech');
 	
 	pageheader(getCompanyName($_GET['id']));
 	
@@ -112,10 +144,14 @@
     	print '<h2>Details</h2>';
 		print '<ul>';
 		print '<li>Type: '.getCompanyType($_GET['id']).'</li>';
+		print '<li>URL: '.getCompanyURL($_GET['id']).'</li>';
+		print '<li>Twitter Handle: '.getCompanyTwitterHandle($_GET['id']).'</li>';
+		print '<li>Facebook Page: '.getCompanyFacebookPage($_GET['id']).'</li>';
 		print '</ul>';
     	print '<div class="row-fluid">
       		<div class="span8">';
       		showPeople($_GET['id']);
+      		print '<hr />';
 			showNews($_GET['id']);
 			print '</div>
       	<div class="span4">';

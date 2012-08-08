@@ -107,6 +107,16 @@
     </div>
     <div class="container">
     <br /><br /><br />';
+    print '<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style ">
+<a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+<a class="addthis_button_tweet"></a>
+<a class="addthis_button_pinterest_pinit"></a>
+<a class="addthis_counter addthis_pill_style"></a>
+</div>
+<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=justinthorp"></script>
+<!-- AddThis Button END -->';
 	print '<h1>'.$pageTitle.'</h1>';
 	}
 
@@ -114,6 +124,8 @@
 
 	function pagefooter(){
 		print '</div>';
+		print '<script type="text/javascript">var addthis_config = {"data_track_addressbar":true};</script>
+<script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=justinthorp"></script>';
 		print '</body>';
 		print '</html>';
 	}
