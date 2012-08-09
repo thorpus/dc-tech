@@ -7,10 +7,12 @@
 	
 	pageheader('DC Tech');
 	
-	showCompanies();
-	
-	showLatestNews();
-	
+	if($_GET['show']=='news'){
+		showLatestNews();
+	}
+	else {
+		showCompanies();
+	}
 	pagefooter();
 	
 	stopDatabaseConnection();

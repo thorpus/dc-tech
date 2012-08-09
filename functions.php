@@ -4,7 +4,8 @@
 		$query = "SELECT * FROM companyTypes ORDER BY type";		
 		$result = mysql_query($query);
 	
-		print'<ul>';
+		print'<ul id="navlist">';
+		print '<li><strong>Type: </strong></li>';
 		
 		while($row = mysql_fetch_array($result)) {	  		
 	  		print '<li><a href="index.php?type='.$row['id'].'">'.$row['type'].'</a></li>';
@@ -65,7 +66,7 @@
 	
 		print '	</table>';
 		
-		print '<h2>'.$howMany.' stories</h2>';
+		print '<p>'.$howMany.' stories</p>';
 	
 	}
 	
@@ -75,6 +76,7 @@
 				<head>
 					<title>'.$pageTitle.'</title>
 					<link href="bootstrap/css/bootstrap.css" rel="stylesheet">
+					<link href="style.css" rel="stylesheet">
 				</head>';
 		print '<body>';
 				print '<div id="fb-root"></div>
@@ -99,7 +101,8 @@
           <a class="brand" href="index.php">DC Tech</a>
           <div class="nav-collapse">
             <ul class="nav">
-              <li class="active"><a href="index.php">Home</a></li>
+              <li class="active"><a href="index.php">Companies</a></li>
+              <li class="active"><a href="index.php?show=news">News</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>

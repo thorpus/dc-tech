@@ -98,7 +98,7 @@
 	
 		print '	</table>';
 		
-		print '<h2>'.$howMany.' people</h2>';
+		print '<p>'.$howMany.' people</p>';
 	
 	}
 	
@@ -125,7 +125,21 @@
 	
 		print '	</table>';
 		
-		print '<h2>'.$howMany.' stories	</h2>';
+		print '<p>'.$howMany.' stories	</p>';
+	
+	}
+	
+	function showDesc($id){
+		$query = "SELECT descr FROM companies WHERE id =".$id;
+		
+		//print $query;
+		
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		
+	
+		print '<h2>Description</h2>';
+		print '<p>'.$row['descr'].'</p>';
 	
 	}
 	
@@ -141,6 +155,9 @@
 	
 	print '<div class="row-fluid">
 	  <div class="span12">';
+    	print '<div class="row-fluid">
+      		<div class="span8">';
+      		showDesc($_GET['id']);	  
     	print '<h2>Details</h2>';
 		print '<ul>';
 		print '<li>Type: '.getCompanyType($_GET['id']).'</li>';
@@ -148,8 +165,6 @@
 		print '<li>Twitter Handle: '.getCompanyTwitterHandle($_GET['id']).'</li>';
 		print '<li>Facebook Page: '.getCompanyFacebookPage($_GET['id']).'</li>';
 		print '</ul>';
-    	print '<div class="row-fluid">
-      		<div class="span8">';
       		showPeople($_GET['id']);
       		print '<hr />';
 			showNews($_GET['id']);
