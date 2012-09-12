@@ -2,6 +2,37 @@
 	include 'db.php';
 	include 'functions.php';
 
+	
+	function getAngelListURL($id){
+		$query = "SELECT alUsername FROM companies WHERE id =".$id;
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		
+		return '<a href="http://angelist.com/'.$row['alUsername'].'">Angel List</a>';
+	}
+	
+	function getAddress($id){
+		$query = "SELECT address, city, state, zipcode FROM companies WHERE id =".$id;
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		
+		return $row['address'].', '.$row['city'].', '.$row['state'].', '.$row['zipcode'];
+	
+	}
+	
+	function getStage($id){
+		$query = "SELECT stage FROM companies WHERE id =".$id;
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		
+		$query = "SELECT name FROM companyStage WHERE id =".$row['stage'];
+		$result = mysql_query($query);
+		$row = mysql_fetch_array($result);
+		
+		return $row['name'];
+		
+	}
+	
 	function getCompanyName($id){
 		$query = "SELECT * FROM companies WHERE id =".$id;
 		$result = mysql_query($query);
@@ -149,7 +180,8 @@
 	}
 
 
-	startDatabaseConnection('jtdctech', 'jtdctech', 'jtdctech');
+     startDatabaseConnection('root', '', 'dctech');
+
 	
 	pageheader(getCompanyName($_GET['id']));
 	
@@ -162,8 +194,11 @@
 		print '<ul>';
 		print '<li>Type: '.getCompanyType($_GET['id']).'</li>';
 		print '<li>URL: '.getCompanyURL($_GET['id']).'</li>';
+		print '<li>Address: '.getAddress($_GET['id']).'</li>';
 		print '<li>Twitter Handle: '.getCompanyTwitterHandle($_GET['id']).'</li>';
 		print '<li>Facebook Page: '.getCompanyFacebookPage($_GET['id']).'</li>';
+		print '<li>'.getAngelListURL($_GET['id']).'</li>';
+		print '<li>Stage: '.getStage($_GET['id']).'</li>';
 		print '</ul>';
       		showPeople($_GET['id']);
       		print '<hr />';
